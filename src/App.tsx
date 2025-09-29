@@ -5,8 +5,122 @@ import CurvedLoop from './components/CurvedLoop';
 import ImageCarousel from './components/ImageCarousel';
 import { MusicPlayer } from './components/MusicPlayer';
 
-// --- DATA FOR YOUR COMPONENTS ---
+// --- QUESTION SECTION COMPONENT ---
+function QuestionSection({ onYesClick }: { onYesClick: () => void }) {
+  const [noButtonPosition, setNoButtonPosition] = useState({ top: '50%', left: '60%' });
+  const [showPleading, setShowPleading] = useState(false);
+  const [noButtonText, setNoButtonText] = useState('Nope');
+  const [hoverCount, setHoverCount] = useState(0);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowPleading(true);
+      setNoButtonText('Are you sure you wanna do this?');
+    }, 20000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleNoHover = () => {
+    const newTop = Math.random() * 70 + 10;
+    const newLeft = Math.random() * 70 + 10;
+    setNoButtonPosition({ top: `${newTop}%`, left: `${newLeft}%` });
+    setHoverCount(prev => prev + 1);
+    
+    if (hoverCount > 5) {
+      setNoButtonText('Really? 🥺');
+    }
+    if (hoverCount > 10) {
+      setNoButtonText('Please don\'t... 💔');
+    }
+  };
+
+  return (
+    <section className="min-h-screen bg-gradient-to-br from-rose-300 via-pink-300 to-purple-300 flex flex-col items-center justify-center relative overflow-hidden px-4">
+      {/* Floating hearts background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute text-4xl animate-float"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${8 + Math.random() * 4}s`,
+              opacity: 0.3,
+            }}
+          >
+            💕
+          </div>
+        ))}
+      </div>
+
+      {/* Main question card */}
+      <div className="relative z-10 bg-white/90 backdrop-blur-lg rounded-3xl p-8 md:p-12 shadow-2xl max-w-2xl w-full text-center">
+        <h2 className="text-4xl md:text-5xl font-bold text-pink-600 font-poppins mb-6">
+          A Little Question... 💭
+        </h2>
+        
+        <p className="text-2xl md:text-3xl text-gray-700 font-quicksand mb-12 leading-relaxed">
+          Will you stay with me forever? ❤️
+        </p>
+
+        {showPleading && (
+          <p className="text-xl md:text-2xl text-pink-500 font-bold mb-6 animate-gradual-fade-in">
+            PLEASE SAY YES! 🥺💕
+          </p>
+        )}
+
+        {/* Yes Button - Fixed position */}
+        <div className="flex flex-col items-center justify-center gap-6 relative" style={{ minHeight: '100px' }}>
+          <button
+            onClick={onYesClick}
+            className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-12 rounded-full text-2xl shadow-lg transform hover:scale-110 transition-all duration-300 z-20"
+          >
+            Yes! 💖
+          </button>
+
+          {/* No Button - Moving position */}
+          <button
+            onMouseEnter={handleNoHover}
+            onTouchStart={handleNoHover}
+            style={{
+              position: 'absolute',
+              top: noButtonPosition.top,
+              left: noButtonPosition.left,
+              transform: 'translate(-50%, -50%)',
+            }}
+            className="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-3 px-8 rounded-full text-lg shadow-md transition-all duration-200"
+          >
+            {noButtonText}
+          </button>
+        </div>
+
+        {hoverCount > 3 && (
+          <p className="mt-8 text-gray-600 italic animate-fade-in-slow">
+            You sure you wanna say NO?! 🥺
+          </p>
+        )}
+      </div>
+
+      <style>{`
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-30px) rotate(180deg);
+          }
+        }
+        .animate-float {
+          animation: float linear infinite;
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// --- DATA FOR YOUR COMPONENTS ---
 const reasons = [
   { id: 1, type: 'text', content: 'Because you have the kindest heart I have ever known.' },
   { id: 2, type: 'photo', content: '/IMG_20250929_160246_237.jpg' },
@@ -64,6 +178,8 @@ const myTracks = [
 function App() {
   const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });
   const [showFinale, setShowFinale] = useState(false);
+  const [questionAnswered, setQuestionAnswered] = useState(false);
+  const [showFireworks, setShowFireworks] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setWindowSize({ width: window.innerWidth, height: window.innerHeight });
@@ -71,7 +187,16 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleYesClick = () => {
+  const handleQuestionYes = () => {
+    setQuestionAnswered(true);  
+    setShowFireworks(true);
+    
+    setTimeout(() => {
+      setShowFireworks(false);
+    }, 5000);
+  };
+
+  const handleFinaleClick = () => {
     setShowFinale(true);
   };
 
@@ -99,12 +224,12 @@ function App() {
         </div>
         
         <div className="text-center z-10 px-6 max-w-2xl mt-32">
-          <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-xl">
+          <div className="bg-white-80 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-xl">
             <h1 className="text-4xl md:text-6xl font-bold text-pink-500 font-poppins mb-4">
-              Happy BIRTHDAY, LEKHA 💖
+              Happy 21! LEKHA 💖
             </h1>
-            <p className="font-quicksand text-lg md:text-xl text-gray-700 my-6">
-              A year of beautiful memories, endless laughter, and infinite love...
+            <p className="font-quicksand text-lg md:text-xl text-gray-800 my-6">
+              Thanking you every year for making my life better just by existing and making <b>BEAUTIFUL</b> memories, laughters, tears and unconditional infinite love...
             </p>
           </div>
         </div>
@@ -112,8 +237,8 @@ function App() {
         <Confetti 
           width={windowSize.width} 
           height={windowSize.height} 
-          recycle={true} 
-          numberOfPieces={150}
+          recycle={false} 
+          numberOfPieces={250}
         />
         
         <div className="absolute bottom-10 animate-bounce">
@@ -123,7 +248,7 @@ function App() {
         </div>
       </section>
 
-      <section className="w-full min-h-screen bg-pink-900 flex items-center justify-center p-4">
+      <section className="w-full min-h-screen bg-pink-900 flex items-center justify-center p-8">
         <ImageCarousel items={galleryItems} />
       </section>
 
@@ -135,8 +260,8 @@ function App() {
         </div>
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {textReasons.map((reason) => (
-  <PolaroidCard key={reason.id} content={reason.content} />
-))}
+            <PolaroidCard key={reason.id} content={reason.content} />
+          ))}
         </div>
       </section>
 
@@ -147,24 +272,45 @@ function App() {
         <MusicPlayer tracks={myTracks} />
       </section>
 
-      <section className="bg-gradient-to-br from-pink-100 to-rose-200 py-20 px-4 min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
-        <div className="max-w-3xl mx-auto text-center z-10">
-          <h2 className="text-4xl md:text-6xl font-bold text-pink-600 font-poppins mb-8">
-            One Last Thing...
-          </h2>
-          <p className="text-xl md:text-2xl text-gray-700 mb-12 font-quicksand leading-relaxed">
-            Every moment with you is a treasure. You make my world brighter, my days happier, 
-            and my heart fuller. Thank you for being you. ❤️
-          </p>
-          <button
-            onClick={handleYesClick}
-            className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition-all duration-300"
-          >
-            Click Me! 💕
-          </button>
-        </div>
-      </section>
+      {/* Question Section */}
+      {!questionAnswered && <QuestionSection onYesClick={handleQuestionYes} />}
 
+      {/* Fireworks Overlay */}
+      {showFireworks && (
+        <div className="fixed inset-0 pointer-events-none z-40">
+          <Confetti
+            width={windowSize.width}
+            height={windowSize.height}
+            recycle={false}
+            numberOfPieces={800}
+            gravity={0.3}
+            colors={['#ec4899', '#f43f5e', '#fb7185', '#fda4af', '#fecdd3']}
+          />
+        </div>
+      )}
+
+      {/* One Last Thing Section */}
+      {questionAnswered && (
+        <section className="bg-gradient-to-br from-pink-100 to-rose-200 py-20 px-4 min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+          <div className="max-w-3xl mx-auto text-center z-10">
+            <h2 className="text-4xl md:text-6xl font-bold text-pink-600 font-poppins mb-8">
+              One Last Thing...
+            </h2>
+            <p className="text-xl md:text-2xl text-gray-700 mb-12 font-quicksand leading-relaxed">
+              Every moment with you is a treasure. You make my world brighter, my days happier, 
+              and my heart fuller. Thank you for being you. ❤️
+            </p>
+            <button
+              onClick={handleFinaleClick}
+              className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+            >
+              Click Me! 💕
+            </button>
+          </div>
+        </section>
+      )}
+
+      {/* Final I Love You Overlay */}
       {showFinale && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-90 flex flex-col items-center justify-center z-50 text-center px-4">
           <p className="text-white text-5xl md:text-7xl font-bold animate-pulse font-poppins mb-4">
