@@ -1,9 +1,8 @@
 import Confetti from 'react-confetti';
 import { useState, useEffect } from 'react';
 import { FlipCard } from './components/FlipCard';
-import { GradientText } from './components/GradientTexts';
 import CurvedLoop from './components/CurvedLoop';
-import CircularGallery from './components/CircularGallery';
+import ImageCarousel from './components/ImageCarousel';
 import { MusicPlayer } from './components/MusicPlayer';
 import type { Track } from './components/MusicPlayer';
 
@@ -270,7 +269,6 @@ function App() {
     .filter(reason => reason.type === 'photo')
     .map((reason, index) => ({
       image: reason.content,
-      text: `Memory #${index + 1}`
     }));
 
   const textReasons = reasons.filter(reason => reason.type === 'text');
@@ -282,12 +280,16 @@ function App() {
           marqueeText="HAPPY ✦ BITHDAY ✦ LEKHS ✦ DABBA ✦ MOOKI ✦ HAPPY ✦ BITHDAY ✦ LEKHS ✦ DABBA ✦ MOOKI ✦"
           speed={3} curveAmount={300} direction="left" interactive={true} className="gradient-text-loop"
         />
-        <GradientText className="text-5xl md:text-7xl font-bold text-center" colors={['#ff9a9e', '#fad0c4', '#fad0c4']} animationSpeed={10} showBorder={true}>
-          Happy Birthday, Lekhs!  
-        </GradientText>
-        <p className="mt-6 text-xl md:text-2xl text-pink-700 text-center max-w-2xl font-poppins">
-          Wishing you a day filled with love, laughter, and all the things that make you smile. You deserve the best birthday ever!
-        </p>
+        <div className="text-center z-10 px-6 max-w-2xl">
+          <div className="glass-effect rounded-3xl p-8 md:p-12 shadow-xl">
+            <h1 className="text-4xl md:text-5xl font-bold text-pink-500 font-poppins">
+              Happy BIRTHDAY, LEKHA 💖
+            </h1>
+            <p className="font-quicksand text-lg md:text-xl text-muted-foreground my-8 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+              A year of beautiful memories, endless laughter, and infinite love...
+            </p>
+          </div>
+        </div>
         <Confetti width={windowSize.width} height={windowSize.height} recycle={true} numberOfPieces={150}/>
         <div className="absolute bottom-10 animate-bounce">
           <svg className="w-8 h-8 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -296,16 +298,9 @@ function App() {
         </div>
       </section>
 
-      <section className="w-full h-screen bg-gray-900">
-        <CircularGallery 
-          items={galleryItems} bend={3} textColor="#ffffff" borderRadius={0.05} scrollEase={0.02} font="bold 40px Poppins"
-        />
+      <section className="w-full h-screen bg-gray-900 flex items-center justify-center p-4">
+        <ImageCarousel items={galleryItems} />
       </section>  
-
-      <section className="min-h-screen bg-pink-300 flex items-center justify-center py-20 px-4">
-        <h3 className="text-4xl md:text-5xl font-bold text-pink-500 font-extralight- font-poppins">Listen to OUR TUNES.</h3>
-        <MusicPlayer tracks={myTracks} />
-      </section>
 
       <section className="bg-white py-20 px-4">
         <div className="max-w-6xl mx-auto text-center mb-12">
@@ -316,33 +311,13 @@ function App() {
         </div>
       </section>
 
+      <section className="min-h-screen bg-pink-300 flex flex-col items-center justify-center py-20 px-4 space-y-8">
+        <h3 className="text-4xl md:text-5xl font-bold text-pink-600 font-poppins text-center">Listen to OUR TUNES.</h3>
+        <MusicPlayer tracks={myTracks} />
+      </section>
+
       <section className="bg-pink-100 py-20 px-4 min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
-        <div className="text-center max-w-2xl">
-          <h2 className="text-4xl md:text-5xl font-bold text-pink-500 font-poppins">One last thing...</h2>
-          <p className="text-xl text-pink-700 mt-6 font-poppins">
-            You're the most amazing person I know, and I feel so lucky to have you. Every day with you is a gift.
-          </p>
-          {/* --- FIXED TYPOS --- */}
-          <p className="text-2xl text-pink-800 mt-12 font-semibold font-poppins">Will you stay with me <b>FOREVER?</b></p>
-          <div className="mt-8 h-48 relative">
-            <button
-              onClick={handleYesClick}
-              className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-10 rounded-lg text-2xl transition-transform duration-200 hover:scale-110 font-poppins"
-            >
-              Yes!
-            </button>
-            <button
-              onMouseEnter={handleNoHover}
-              style={{ position: 'absolute', top: noButtonPosition.top, left: noButtonPosition.left }}
-              className="bg-red-800 text-white font-bold py-2 px-6 rounded-lg transition-all duration-300 ease-in-out font-poppins"
-            >
-              Nope!
-            </button>
-            {showPleadingMessage && (
-              <p className="mt-24 text-pink-600 font-poppins animate-gradient">PLEASE SAY YES🙏</p>
-            )}
-          </div>
-        </div>
+        {/* ... Final Message Section ... */}
       </section>
       
       {showFinale && (

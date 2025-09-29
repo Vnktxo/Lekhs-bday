@@ -1,28 +1,33 @@
 // tailwind.config.js
-
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    // your content paths
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}", 
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
-      // Add this entire block
+      fontFamily: {
+        poppins: ['"Poppins"', 'sans-serif'],
+        quicksand: ['"Quicksand"', 'sans-serif'], // Added Quicksand
+      },
+      colors: {
+        'muted-foreground': '#71717a', // Added this color
+      },
       keyframes: {
         gradient: {
           '0%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
           '100%': { backgroundPosition: '0% 50%' },
         },
+        'fade-in-up': { // Added this animation
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
         gradient: 'gradient 8s linear infinite',
-      },  
-       fontFamily: {
-        klee: ['"Klee One"', 'cursive'],
-        poppins: ['"Poppins"', 'sans-serif'],
+        'fade-in-up': 'fade-in-up 0.5s ease-out forwards', // Added this
       },
     },
   },

@@ -1,3 +1,10 @@
+/* src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ... your other classes ... */
+
+.glass-effect {
+  @apply bg-white/70 backdrop-blur-sm;
+}
