@@ -9,7 +9,8 @@ export default {
     extend: {
       fontFamily: {
         poppins: ['"Poppins"', 'sans-serif'],
-        quicksand: ['"Quicksand"', 'sans-serif'], // Added Quicksand
+        quicksand: ['"Quicksand"', 'sans-serif'],
+        'indie-flower': ['"Indie Flower"', 'cursive'] // Added Quicksand
       },
       colors: {
         'muted-foreground': '#71717a', // Added this color

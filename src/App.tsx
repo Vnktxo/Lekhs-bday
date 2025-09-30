@@ -2,8 +2,7 @@ import Confetti from 'react-confetti';
 import { useState, useEffect } from 'react';
 import { PolaroidCard } from './components/PolaroidCard';
 import CurvedLoop from './components/CurvedLoop';
-import ImageCarousel from './components/ImageCarousel';
-import { MusicPlayer } from './components/MusicPlayer';
+import { MusicPlayer } from './components/MusicPlayer'; 
 
 // --- QUESTION SECTION COMPONENT ---
 function QuestionSection({ onYesClick }: { onYesClick: () => void }) {
