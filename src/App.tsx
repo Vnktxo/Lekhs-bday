@@ -136,8 +136,11 @@ const reasons = [
   { id: 12, type: 'photo', content: '/IMG_20250929_160335_391.jpg' },
   { id: 13, type: 'text', content: 'For all the adventures we have shared and those yet to come.' },
   { id: 14, type: 'photo', content: '/IMG_20250929_160335_447.jpg' },
-  { id: 15, type: 'text', content: 'Because you are simply amazing in every way.' },
   { id: 16, type: 'photo', content: '/IMG_20250929_160351_113.jpg' }, 
+  { id: 17, type: 'text', content: 'For being you, and for letting me be me.' },
+  { id: 18, type: 'photo', content: '/20250825_200447.jpg' },
+  { id: 19, type: 'text', content: 'Because life is just better with you in it.' },
+  { id: 20, type: 'photo', content: '/20240829_131823.jpg' },
 ];
 
 const myTracks = [
@@ -168,11 +171,9 @@ const myTracks = [
   { id: 24, title: 'Ilamai Thirumbudhe', artist: 'Anirudh Ravichander', image: '/music/ilamai-thirumbudhe-art.jpg', src: '/music/ilamai-thirumbudhe.mp3' },
   { id: 25, title: 'Nee kavithaigala', artist: 'Pradeep Kumar', image: '/music/nee-kavithaigala-art.jpg', src: '/music/nee-kavithaigala.mp3' },
   { id: 26, title: 'vizhi Moodi', artist: 'Karthik', image: '/music/vizhi-moodi-art.jpg', src: '/music/vizhi-moodi.mp3' },
-  { id: 27, title: 'Senjitaley', artist: 'anirudh Ravichander', image: '/music/senjitaley-art.jpg', src: '/music/senjitaley.mp3' },
-  { id: 28, title: 'Agasatha', artist: 'Pradeep Kumar', image: '/music/agasatha-art.jpg', src: '/music/agasatha.mp3' },
-  { id: 29, title: 'Nee Partha', artist: 'Ilaiyaraaja', image: '/music/nee-partha-art.jpg', src: '/music/nee-partha.mp3' },
-  { id: 30, title: 'Neee', artist: 'yuvan Shankar Raja', image: '/music/neee-art.jpg', src: '/music/neee.mp3' },
-  { id: 31, title: 'My Love(feat. T.I.)', artist: 'Justin Timberlake', image: '/music/my-love-art.jpg', src: '/music/my-love.mp3' },
+  { id: 27, title: 'Agasatha', artist: 'Pradeep Kumar', image: '/music/agasatha-art.jpg', src: '/music/agasatha.mp3' },
+  { id: 28, title: 'Nee Partha', artist: 'Ilaiyaraaja', image: '/music/nee-partha-art.jpg', src: '/music/nee-partha.mp3' },
+  { id: 29, title: 'Neee', artist: 'yuvan Shankar Raja', image: '/music/neee-art.jpg', src: '/music/neee.mp3' },
 ];
 
 function App() {
@@ -200,7 +201,7 @@ function App() {
     setShowFinale(true);
   };
 
-  const galleryItems = reasons
+ const galleryItems = reasons
     .filter(reason => reason.type === 'photo')
     .map((reason) => ({
       image: reason.content,
@@ -214,7 +215,7 @@ function App() {
       <section className="min-h-screen w-full bg-gradient-to-br from-pink-200 via-pink-300 to-rose-300 flex flex-col items-center justify-center relative px-4 overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-40">
           <CurvedLoop 
-            marqueeText="HAPPY ✦ BIRTHDAY ✦ LEKHA ✦ DABBA ✦ MOOKI ✦ PAPA ✦ CUTIEEEE ✦ BANGARAM ✦ MEANIE ✦ MUSHROOM GIRL ✦ BUB ✦ BBG ✦ YOME ✦HAPPY ✦ BIRTHDAY ✦ LEKHA ✦ DABBA ✦ MOOKI ✦"
+            marqueeText="HAPPY ✦ BIRTHDAY ✦ LEKHA ✦ DABBA ✦ MOOKI ✦ PAPA ✦ CUTIEEEE ✦ PLUMPKIN ✦ BANGARAM ✦ POOKIE ✦ MOMMY ✦ PLUMPY ✦ HONEY BUM ✦ WOOKIE ✦ MEANIE ✦ MUSHROOM GIRL ✦ BUB ✦ BBG ✦ YOME ✦ SRI ✦ BIRTHDAY ✦ LEKHA ✦ DABBA ✦ MOOKI ✦"
             speed={4}
             curveAmount={200}
             direction="left"
@@ -237,7 +238,7 @@ function App() {
         <Confetti 
           width={windowSize.width} 
           height={windowSize.height} 
-          recycle={false} 
+          recycle={true} 
           numberOfPieces={250}
         />
         
@@ -247,9 +248,55 @@ function App() {
           </svg>
         </div>
       </section>
+      
+      <section className="min-h-screen bg-gradient-to-br from-pink-300 to-rose-400 flex flex-col items-center justify-center py-20 px-4">
+        <h3 className="text-4xl md:text-5xl font-bold text-white font-poppins text-center mb-12 drop-shadow-lg">
+          But first let's start with OUR TUNES 🎵
+        </h3>
+        <MusicPlayer tracks={myTracks} />
+      </section>
 
-      <section className="w-full min-h-screen bg-pink-900 flex items-center justify-center p-8">
-        <ImageCarousel items={galleryItems} />
+      <section className="w-full min-h-screen bg-gray-900 flex items-center justify-center py-12 px-4 overflow-hidden">
+        <div className="w-full">
+          <div className="relative w-full overflow-hidden">
+            <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-r from-gray-900 to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-l from-gray-900 to-transparent z-10 pointer-events-none" />
+            
+            <div className="flex gap-4 sm:gap-6 animate-scroll-infinite">
+              {[...galleryItems, ...galleryItems].map((item, index) => (
+                <div
+                  key={index}
+                  className="flex-shrink-0 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-105"
+                >
+                  <img
+                    src={item.image}
+                    alt={`Memory ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        
+        <style>{`
+          @keyframes scroll-infinite {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-50%);
+            }
+          }
+          
+          .animate-scroll-infinite {
+            animation: scroll-infinite 25s linear infinite;
+          }
+          
+          .animate-scroll-infinite:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
       </section>
 
       <section className="bg-gradient-to-br from-white to-pink-50 py-20 px-4">
@@ -265,17 +312,8 @@ function App() {
         </div>
       </section>
 
-      <section className="min-h-screen bg-gradient-to-br from-pink-300 to-rose-400 flex flex-col items-center justify-center py-20 px-4">
-        <h3 className="text-4xl md:text-5xl font-bold text-white font-poppins text-center mb-12 drop-shadow-lg">
-          Listen to OUR TUNES 🎵
-        </h3>
-        <MusicPlayer tracks={myTracks} />
-      </section>
-
-      {/* Question Section */}
       {!questionAnswered && <QuestionSection onYesClick={handleQuestionYes} />}
 
-      {/* Fireworks Overlay */}
       {showFireworks && (
         <div className="fixed inset-0 pointer-events-none z-40">
           <Confetti
@@ -289,8 +327,7 @@ function App() {
         </div>
       )}
 
-      {/* One Last Thing Section */}
-      {questionAnswered && (
+      {questionAnswered && !showFinale && (
         <section className="bg-gradient-to-br from-pink-100 to-rose-200 py-20 px-4 min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
           <div className="max-w-3xl mx-auto text-center z-10">
             <h2 className="text-4xl md:text-6xl font-bold text-pink-600 font-poppins mb-8">
@@ -310,30 +347,53 @@ function App() {
         </section>
       )}
 
-      {/* Final I Love You Overlay */}
       {showFinale && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-90 flex flex-col items-center justify-center z-50 text-center px-4">
-          <p className="text-white text-5xl md:text-7xl font-bold animate-pulse font-poppins mb-4">
-            I LOVE YOU! ❤️
-          </p>
-          <p className="text-white text-2xl md:text-3xl font-quicksand mt-4">
-            Forever and always, LEKHA 💖
-          </p>
-          <Confetti
-            width={windowSize.width}
-            height={windowSize.height}
-            recycle={false}
-            numberOfPieces={500}
-            tweenDuration={8000}
-          />
-          <button
-            onClick={() => setShowFinale(false)}
-            className="mt-12 bg-white/20 hover:bg-white/30 text-white font-semibold py-3 px-6 rounded-full backdrop-blur-sm transition-all"
-          >
-            Close
-          </button>
-        </div>
-      )}
+  <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 px-4">
+    <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 md:p-12 shadow-2xl max-w-4xl w-full text-center text-white">
+      {/* Image at top */}
+      <img
+        src="/IMG_20250929_160351_113.jpg"
+        alt="Lekha"
+        className="w-40 h-40 md:w-60 md:h-60 object-cover rounded-full mx-auto mb-6 shadow-lg border-4 border-white/30"
+      />
+
+      {/* Title */}
+      <p className="text-4xl md:text-6xl font-bold animate-pulse font-poppins mb-6">
+        I LOVE YOU MORE!
+      </p>
+
+      {/* Message */}
+      <p className="text-lg md:text-2xl font-quicksand leading-relaxed">
+        It's almost 4 years now and 8 if I count from 8th or 2018 ig; like where
+        did all that time go? Still the MOST BEAUTFUL WOMAN I have ever seen and
+        ever will like you make every other person unattractive! I'm so obsessed
+        with ya like I smile at the beautiful memories and moments we had years
+        ago which instantly lifts my mood and everything. Once again HAPPY
+        BIRTHDAY! I wish ALL YOUR DREAMS COME and pains go away and also don't
+        you ever forget that 60 years promise we made that day. I want to grow
+        old with you. Forever and always Thank you for not being everything I've
+        ever wanted but being SO MUCH MORE THAN THAT!!!, LEKHA 💖
+      </p>
+
+      {/* Confetti */}
+      <Confetti
+        width={windowSize.width}
+        height={windowSize.height}
+        recycle={false}
+        numberOfPieces={500}
+        tweenDuration={8000}
+      />
+
+      {/* Button */}
+      <button
+        onClick={() => setShowFinale(false)}
+        className="mt-10 bg-pink-600 hover:bg-pink-500 text-white font-semibold py-3 px-8 rounded-full transition-all shadow-lg"
+      >
+        LOVE YOU TOO!
+      </button>
+    </div>
+  </div>
+)}
     </main>
   );
 }
